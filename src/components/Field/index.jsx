@@ -155,7 +155,7 @@ const Field = () => {
                     <Link
                       key={i}
                       data-tooltip-id={((i + 1) * 10 + index + 1).toString()}
-                      href={`/battle/${(i + 1) * 10 + index + 1}`}
+                      href={`/${(i + 1) * 10 + index + 1}`}
                       onClick={() => {
                         setSecondPlayer(cell);
                         localStorage.setItem(

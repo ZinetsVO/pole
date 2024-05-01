@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import css from "./style.module.css";
 import Timer from "../Timer";

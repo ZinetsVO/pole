@@ -11,7 +11,13 @@ const ProductContext = createContext();
 
 export default function ProductProvider({ children }) {
   const [firstPlayer, setFirstPlayer] = useState(() => {
-    const saved = localStorage.getItem("firstPlayer");
+    let saved;
+
+    try {
+      saved = localStorage.getItem("firstPlayer")
+    } catch (error) {
+      saved = null
+    }
     let initialValue;
 
     if (saved != null && saved != undefined) {
@@ -23,7 +29,12 @@ export default function ProductProvider({ children }) {
     return initialValue;
   });
   const [field, setField] = useState(() => {
-    const saved = localStorage.getItem("field");
+    let saved;
+    try {
+      saved = localStorage.getItem("field")
+    } catch (error) {
+      saved = null
+    }
     let initialValue;
     if (saved != null && saved != undefined) {
       initialValue = JSON.parse(saved);
