@@ -1,0 +1,21 @@
+.timer__wrapper {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: var(--weight-bold);
+  font-size: var(--text-enormous);
+  color: var(--accent-white);
+  background-image: linear-gradient(
+    to right,
+    #0099f7 0%,
+    #f11712 51%,
+    #0099f7 100%
+  );
+  background-size: 200% auto;
+
+}
+

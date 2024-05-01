@@ -1,0 +1,16 @@
+.photo {
+    height: auto;
+    width: 553px;
+    max-height: 400px;
+    margin: 0 auto;
+    margin-bottom: auto;
+}
+
+.photo__title {
+    color: var(--text-color-white);
+    font-size: var(--text-enormous);
+    font-weight: var(--weight-bold);
+    margin: 0 auto;
+    margin-bottom: 20px;
+    
+}

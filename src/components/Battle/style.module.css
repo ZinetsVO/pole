@@ -1,0 +1,74 @@
+.component__wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.battle__photo {
+  margin: 0 auto;
+  width: 800px;
+  height: 400px;
+  background-color: red;
+  margin-bottom: 40px;
+  margin-bottom: auto;
+}
+
+.timers__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 30px;
+}
+
+
+.button__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.continue__button {
+ margin-top: auto;
+
+}
+.popup__inner {
+  z-index: 3;
+  border-radius: 10px;
+  width: 500px;
+  height: 300px;
+  background-color: #171717;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  color: var(--text-color-white);
+box-shadow: 0px 0px 60px 15px #444444b7;
+}
+
+.popup__title {
+  color: var(--text-color-white);
+  font-size: 28px;
+}
+
+.popup__text {
+  text-indent: 30px;
+  opacity: 0.8;
+  text-align: left;
+  color: var(--text-secondary);
+  font-weight: var(--weight-normal);
+  font-size: var(--text-paragraph);
+}
+
+.timer__first {
+  box-shadow: 0px 0px 10px 2px var(--fourth-accent);
+}
+
+
+.timer__second {
+  box-shadow: 0px 0px 10px 2px #ff4a47bc;
+}
