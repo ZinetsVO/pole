@@ -151,7 +151,7 @@ const Field = () => {
             <li key={index} className={css.table__row}>
               {row.map((cell, i) => {
                 return (
-                  <>
+                  <div key={(i + 1) * 10 + index + 1}>
                     <Link
                       key={i}
                       data-tooltip-id={((i + 1) * 10 + index + 1).toString()}
@@ -189,7 +189,7 @@ const Field = () => {
                       place="bottom"
                       content={categories[(i + 1) * 10 + index + 1]}
                     />
-                  </>
+                  </div>
                 );
               })}
             </li>

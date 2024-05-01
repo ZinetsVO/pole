@@ -51,7 +51,13 @@ export default function ProductProvider({ children }) {
     return initialValue;
   });
   const [players, setPlayers] = useState(() => {
-    const saved = localStorage.getItem("players");
+    let saved ;
+
+    try {
+      saved = localStorage.getItem("players");
+    } catch (error) {
+      saved - null;
+    }
     let initialValue;
     if (saved != null && saved != undefined) {
       initialValue = JSON.parse(saved);
@@ -66,7 +72,12 @@ export default function ProductProvider({ children }) {
   });
 
   const [secondPlayer, setSecondPlayer] = useState(() => {
-    const saved = localStorage.getItem("secondPlayer");
+    let saved;
+    try {
+      saved = localStorage.getItem("secondPlayer");
+    } catch (error) {
+      saved = null
+    }
     let initialValue;
     if (saved != null && saved != undefined) {
       initialValue = JSON.parse(saved);
