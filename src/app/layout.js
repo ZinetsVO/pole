@@ -6,7 +6,7 @@ const comfortaa = Comfortaa({ subsets: ["cyrillic"] });
 
 export const metadata = {
   title: "Поле",
-  description: "Творець: Зінець Вячеслав",
+  description: "Творці: група ФМН-4 2024 року випуску. Розробник: Зінець Вячеслав",
 };
 
 export default function RootLayout({ children }) {
