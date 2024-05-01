@@ -15,7 +15,8 @@
     "react-countdown": "^2.3.5",
     "react-countup": "^6.5.3",
     "react-dom": "^18",
-    "react-slot-counter": "^2.3.1"
+    "react-slot-counter": "^2.3.1",
+    "react-tooltip": "^5.26.4"
   },
   "devDependencies": {
     "eslint": "^8",

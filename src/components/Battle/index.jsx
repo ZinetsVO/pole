@@ -19,10 +19,10 @@ const Battle = (id) => {
     setPlayers,
   } = useProduct();
 
-  const defTime = 45;
+  const defTime = 30;
 
-  const [isRunningFirst, setIsRunningFirst] = useState(true); // it is for first player. Second player is vise-versa
-  const [isRunningSecond, setIsRunningSecond] = useState(false); // it is for first player. Second player is vise-versa
+  const [isRunningFirst, setIsRunningFirst] = useState(false);
+  const [isRunningSecond, setIsRunningSecond] = useState(false);
   const [timeFirst, setTimeFirst] = useState(defTime);
   const [timeSecond, setTimeSecond] = useState(defTime);
 
@@ -48,12 +48,14 @@ const Battle = (id) => {
     if (isRunningFirst) {
       if (timeFirst > 5) {
         setTimeFirst(timeFirst - 5);
+        setCounter(counter + 1);
       } else {
         setTimeFirst(0);
       }
     } else {
       if (timeSecond > 5) {
         setTimeSecond(timeSecond - 5);
+        setCounter(counter + 1);
       } else {
         setTimeSecond(0);
       }
@@ -107,7 +109,16 @@ const Battle = (id) => {
 
   return (
     <div className={classNames("container", css.component__wrapper)}>
-      <BattlePhoto id={id} counter={counter} />
+      {!isRunningFirst && !isRunningSecond ? (
+        <div
+          onClick={() => setIsRunningFirst(true)}
+          className={css.start__wrapper}
+        >
+          <button className="blue__button">Почати раунд</button>
+        </div>
+      ) : (
+        <BattlePhoto id={id} counter={counter} />
+      )}
       <div className={css.timers__wrapper}>
         <div className={css.battle__timer}>
           <Timer
@@ -117,14 +128,18 @@ const Battle = (id) => {
             setTime={setTimeFirst}
           />
         </div>
-        <div className={css.button__wrapper}>
-          <button className="blue__button" onClick={() => handleIsRunning()}>
-            Відгадав!
-          </button>
-          <button className="red__button" onClick={() => onPass()}>
-            Пас!
-          </button>
-        </div>
+        {!isRunningFirst && !isRunningSecond ? (
+          <></>
+        ) : (
+          <div className={css.button__wrapper}>
+            <button className="blue__button" onClick={() => handleIsRunning()}>
+              Відгадав!
+            </button>
+            <button className="red__button" onClick={() => onPass()}>
+              Пас!
+            </button>
+          </div>
+        )}
         <div className={css.battle__timer}>
           <Timer
             classWrapper={css.timer__second}

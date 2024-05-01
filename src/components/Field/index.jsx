@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useProduct } from "../Context";
 import CountUp from "react-countup";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import { categories } from "@/categories";
 
 const Field = () => {
   const {
@@ -21,69 +23,69 @@ const Field = () => {
   const [roll, setRoll] = useState(0);
 
   const colors = [
-    "#FF5733",
-    "#00A896",
-    "#FFC300",
-    "#FF6347",
-    "#3498DB",
-    "#FFD700",
-    "#FF4500",
-    "#2ECC71",
-    "#FF69B4",
-    "#2980B9",
-    "#FFA07A",
-    "#8E44AD",
-    "#F39C12",
-    "#1ABC9C",
-    "#E74C3C",
-    "#27AE60",
-    "#FF1493",
-    "#16A085",
-    "#E74C3C",
-    "#3498DB",
-    "#FF6347",
-    "#2ECC71",
-    "#FFD700",
-    "#8E44AD",
-    "#F39C12",
-    "#1ABC9C",
-    "#FFA07A",
-    "#2980B9",
-    "#FF5733",
-    "#FF1493",
-    "#FEE800",
+    // "#FF5733",
+    // "#00A896",
+    // "#FFC300",
+    // "#FF6347",
+    // "#3498DB",
+    // "#FFD700",
+    // "#FF4500",
+    // "#2ECC71",
+    // "#FF69B4",
+    // "#2980B9",
+    // "#FFA07A",
+    // "#8E44AD",
+    // "#F39C12",
+    // "#1ABC9C",
+    // "#E74C3C",
+    // "#27AE60",
+    // "#FF1493",
+    // "#16A085",
+    // "#E74C3C",
+    // "#3498DB",
+    // "#FF6347",
+    // "#2ECC71",
+    // "#FFD700",
+    // "#8E44AD",
+    // "#F39C12",
+    // "#1ABC9C",
+    // "#FFA07A",
+    // "#2980B9",
+    // "#FF5733",
+    // "#FF1493",
+    // "#FEE800",
 
-    // "#FF7B8C",
-    // "#FF0021",
-    // "#74000F",
-    // "#7D3B3B",
-    // "#FFC079",
-    // "#FF8700",
-    // "#B45F00",
-    // "#926C41",
-    // "#FEFD76",
-    // "#FFFD00",
-    // "#A6A100",
-    // "#A6A451",
-    // "#97FF82",
-    // "#2BFF00",
-    // "#66A659",
-    // "#A9F9FF",
-    // "#00EDFF",
-    // "#007F89",
-    // "#44A5AD",
-    // "#8EA5FF",
-    // "#0034FF",
-    // "#00166A",
-    // "#4A5EA8",
-    // "#DFBCFF",
-    // "#8500FF",
-    // "#450084",
-    // "#FF5A5A",
-    // "#FF0000",
-    // "#770000",
-    // "#DAF7A6",
-    // "#AC2DA4",
+    "#201923",
+    "#f22020",
+    "#fee800",
+    "#7dfc00",
+    "#0ec434",
+    "#228c68",
+    "#8ad8e8",
+    "#235b54",
+    "#29bdab",
+    "#3998f5",
+    "#37294f",
+    "#277da7",
+    "#3750db",
+    "#676767",
+    "#991919",
+    "#ffcba5",
+    "#e68f66",
+    "#c56133",
+    "#96341c",
+    "#632819",
+    "#ffc413",
+    "#f47a22",
+    "#2f2aa0",
+    "#b732cc",
+    "#772b9d",
+    "#f07cab",
+    "#d30b94",
+    "#989eaf",
+    "#c3a5b4",
+    "#946aa2",
+    "#5d4c86",
   ];
 
   const findNeighbours = (playerNumber) => {
@@ -149,36 +151,45 @@ const Field = () => {
             <li key={index} className={css.table__row}>
               {row.map((cell, i) => {
                 return (
-                  <Link
-                    key={i}
-                    href={`/battle/${(i + 1) * 10 + index + 1}`}
-                    onClick={() => {
-                      setSecondPlayer(cell);
-                      localStorage.setItem(
-                        "secondPlayer",
-                        JSON.stringify(cell)
-                      );
-                    }}
-                    style={
-                      neighbours.includes(cell)
-                        ? { color: colors[cell] }
-                        : {
-                            backgroundColor: colors[cell],
-                            pointerEvents: "none",
-                            boxShadow: `0px 0px 15px 0px ${colors[cell]}`,
-                          }
-                    }
-                    className={classNames(css.table__cell, {
-                      [css.table__cell__active]: cell == firstPlayer,
-                      [css.table__cell__nb]: neighbours.includes(cell),
-                      [css.table__disabled]:
-                        !neighbours.includes(cell) &&
-                        cell != firstPlayer &&
-                        firstPlayer != -1,
-                    })}
-                  >
-                    <span>{cell}</span>
-                  </Link>
+                  <>
+                    <Link
+                      key={i}
+                      data-tooltip-id={((i + 1) * 10 + index + 1).toString()}
+                      href={`/battle/${(i + 1) * 10 + index + 1}`}
+                      onClick={() => {
+                        setSecondPlayer(cell);
+                        localStorage.setItem(
+                          "secondPlayer",
+                          JSON.stringify(cell)
+                        );
+                      }}
+                      style={
+                        neighbours.includes(cell)
+                          ? { color: colors[cell] }
+                          : {
+                              backgroundColor: colors[cell],
+                              pointerEvents: "none",
+                              boxShadow: `0px 0px 15px 0px ${colors[cell]}`,
+                            }
+                      }
+                      className={classNames(css.table__cell, {
+                        [css.table__cell__active]: cell == firstPlayer,
+                        [css.table__cell__nb]: neighbours.includes(cell),
+                        [css.table__disabled]:
+                          !neighbours.includes(cell) &&
+                          cell != firstPlayer &&
+                          firstPlayer != -1,
+                      })}
+                    >
+                      <span>{cell}</span>
+                    </Link>
+                    <ReactTooltip
+                      style={{ zIndex: 4, fontSize: 16 }}
+                      id={((i + 1) * 10 + index + 1).toString()}
+                      place="bottom"
+                      content={categories[(i + 1) * 10 + index + 1]}
+                    />
+                  </>
                 );
               })}
             </li>
@@ -224,6 +235,8 @@ const Field = () => {
               1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
               20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
             ]);
+            setFirstPlayer(-1);
+            setSecondPlayer(-1);
           }
         }}
         className={classNames("red__button", css.end__button)}

@@ -42,6 +42,14 @@ const BattlePhoto = ({id, counter}) => {
 
   if (!photo) {
     try {
+      photo = require(`@/static/data/${id.id}/${counter}.PNG`)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  if (!photo) {
+    try {
       photo = require(`@/static/data/${id.id}/${counter}.jfif`)
     } catch (error) {
       console.error(error);
