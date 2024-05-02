@@ -14,13 +14,13 @@ export default function ProductProvider({ children }) {
     let saved;
 
     try {
-      saved = localStorage.getItem("firstPlayer")
+      saved = localStorage.getItem("firstPlayer");
     } catch (error) {
-      saved = null
+      saved = null;
     }
     let initialValue;
 
-    if (saved != null && saved != undefined) {
+    if (saved != null && saved != "undefined") {
       initialValue = JSON.parse(saved);
     } else {
       initialValue = -1;
@@ -28,15 +28,33 @@ export default function ProductProvider({ children }) {
 
     return initialValue;
   });
+
+  const [secondPlayer, setSecondPlayer] = useState(() => {
+    let saved;
+    try {
+      saved = localStorage.getItem("secondPlayer");
+    } catch (error) {
+      saved = null;
+    }
+    let initialValue;
+    if (saved != null && saved != "undefined") {
+      initialValue = JSON.parse(saved);
+    } else {
+      initialValue = -1;
+    }
+
+    return initialValue;
+  });
+
   const [field, setField] = useState(() => {
     let saved;
     try {
-      saved = localStorage.getItem("field")
+      saved = localStorage.getItem("field");
     } catch (error) {
-      saved = null
+      saved = null;
     }
     let initialValue;
-    if (saved != null && saved != undefined) {
+    if (saved) {
       initialValue = JSON.parse(saved);
     } else {
       initialValue = [
@@ -51,15 +69,15 @@ export default function ProductProvider({ children }) {
     return initialValue;
   });
   const [players, setPlayers] = useState(() => {
-    let saved ;
+    let saved;
 
     try {
       saved = localStorage.getItem("players");
     } catch (error) {
-      saved - null;
+      saved = null;
     }
     let initialValue;
-    if (saved != null && saved != undefined) {
+    if (saved) {
       initialValue = JSON.parse(saved);
     } else {
       initialValue = [
@@ -71,30 +89,12 @@ export default function ProductProvider({ children }) {
     return initialValue;
   });
 
-  const [secondPlayer, setSecondPlayer] = useState(() => {
-    let saved;
-    try {
-      saved = localStorage.getItem("secondPlayer");
-    } catch (error) {
-      saved = null
-    }
-    let initialValue;
-    if (saved != null && saved != undefined) {
-      initialValue = JSON.parse(saved);
-    } else {
-      initialValue = -1;
-    }
-
-    return initialValue;
-  });
-
   const [neighbours, setNeighbours] = useState([]);
 
   useEffect(() => {
     const defField = localStorage.getItem("field");
     const defPlayers = localStorage.getItem("players");
     if (defField == undefined || defField == null) {
-      
       localStorage.setItem(
         "field",
         JSON.stringify([
@@ -107,7 +107,6 @@ export default function ProductProvider({ children }) {
       );
     }
 
-    //next line
     if (defPlayers == undefined || defPlayers == null) {
       localStorage.setItem(
         "players",

@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import css from "./style.module.css";
 import classNames from "classnames";
@@ -17,7 +18,7 @@ const Timer = ({isRunning, time, setTime, classWrapper}) => {
     return () => {
       clearInterval(timeRef.current);
     };
-  }, [isRunning]);
+  }, [setTime, isRunning]);
 
   
 

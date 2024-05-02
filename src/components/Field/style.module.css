@@ -104,11 +104,10 @@ width: 2.5ch;
 text-align: center;
 }
 
-.end__button {
+.end__wrapper {
   position: absolute;
   top: 30px;
   right: 30px;
-  font-size: var(--text-small);
-  padding: 10px 15px;
 }
+
 

@@ -14,13 +14,11 @@ const Battle = (id) => {
     secondPlayer,
     setFirstPlayer,
     setSecondPlayer,
-    field,
-    players,
     setField,
     setPlayers,
   } = useProduct();
 
-  const defTime = 30;
+  const defTime = 45;
 
   const [isRunningFirst, setIsRunningFirst] = useState(false);
   const [isRunningSecond, setIsRunningSecond] = useState(false);
@@ -43,19 +41,17 @@ const Battle = (id) => {
     setIsRunningSecond(!isRunningSecond);
   };
 
-  let test = require("@/static/data/11/1.jpg");
-
   const onPass = () => {
     if (isRunningFirst) {
-      if (timeFirst > 5) {
-        setTimeFirst(timeFirst - 5);
+      if (timeFirst > 3) {
+        setTimeFirst(timeFirst - 3);
         setCounter(counter + 1);
       } else {
         setTimeFirst(0);
       }
     } else {
-      if (timeSecond > 5) {
-        setTimeSecond(timeSecond - 5);
+      if (timeSecond > 3) {
+        setTimeSecond(timeSecond - 3);
         setCounter(counter + 1);
       } else {
         setTimeSecond(0);
@@ -98,7 +94,6 @@ const Battle = (id) => {
 
       localStorage.setItem("players", JSON.stringify(updatedPlayers));
       return updatedPlayers;
-      localStorage.setItem("players", JSON.stringify(players));
     });
 
     setFirstPlayer(-1);

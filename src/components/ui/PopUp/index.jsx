@@ -1,9 +1,10 @@
+"use client";
 import classNames from "classnames";
 import React, { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import css from "./style.module.css"
 
-const PopUp = ({ isOpen, setIsOpen, children }) => {
+const PopUp = ({ isOpen, children }) => {
   const ref = useRef(null);
 
   useEffect(() => {
