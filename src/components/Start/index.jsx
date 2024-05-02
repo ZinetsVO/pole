@@ -7,7 +7,7 @@ import Link from "next/link";
 const Start = () => {
   return (
     <div className={classNames( css.start__bg)}>
-      <h2 className={classNames(css.start__title, css.start__text)}>Поле</h2>
+      <h2 className={classNames(css.start__title, css.start__text)}>Природниче поле</h2>
       <p className={classNames(css.start__paragraph, css.start__text)}>
         Правила прості: випадковим чином визначається гравець. Він повинен
         обрати собі суперника, з яким буде змагатися у батлі на одну з тем
