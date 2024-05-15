@@ -10,6 +10,7 @@ import { categories } from "@/categories";
 import PopUp from "../ui/PopUp";
 import EndButton from "../EndButton";
 import Finish from "../Finish";
+import { subjects } from "@/subjects";
 
 const Field = () => {
   const {
@@ -26,38 +27,6 @@ const Field = () => {
   const [roll, setRoll] = useState(0);
 
   const colors = [
-    // "#FF5733",
-    // "#00A896",
-    // "#FFC300",
-    // "#FF6347",
-    // "#3498DB",
-    // "#FFD700",
-    // "#FF4500",
-    // "#2ECC71",
-    // "#FF69B4",
-    // "#2980B9",
-    // "#FFA07A",
-    // "#8E44AD",
-    // "#F39C12",
-    // "#1ABC9C",
-    // "#E74C3C",
-    // "#27AE60",
-    // "#FF1493",
-    // "#16A085",
-    // "#E74C3C",
-    // "#3498DB",
-    // "#FF6347",
-    // "#2ECC71",
-    // "#FFD700",
-    // "#8E44AD",
-    // "#F39C12",
-    // "#1ABC9C",
-    // "#FFA07A",
-    // "#2980B9",
-    // "#FF5733",
-    // "#FF1493",
-    // "#FEE800",
-
     "#201923",
     "#f22020",
     "#fee800",
@@ -130,17 +99,26 @@ const Field = () => {
 
   const chooseNextPlayer = () => {
     setNeighbours([]);
-    setFirstPlayer(-1);
     setSecondPlayer(-1);
-    localStorage.setItem("firstPlayer", JSON.stringify(-1));
     localStorage.setItem("secondPlayer", JSON.stringify(-1));
-    const index = Math.floor(Math.random() * players.length);
-    setRoll(players[index]);
-    localStorage.setItem("firstPlayer", JSON.stringify(players[index]));
-    setTimeout(() => {
-      setFirstPlayer(players[index]);
-      findNeighbours(players[index]);
-    }, 1500);
+    if (firstPlayer == -1) {
+      const index = Math.floor(Math.random() * players.length);
+      setRoll(players[index]);
+      localStorage.setItem("firstPlayer", JSON.stringify(players[index]));
+      setTimeout(() => {
+        setFirstPlayer(players[index]);
+        findNeighbours(players[index]);
+      }, 1500);
+    } else {
+      setFirstPlayer(-1)
+      const player = JSON.parse(localStorage.getItem("firstPlayer"));
+      setRoll(player);
+      localStorage.setItem("firstPlayer", JSON.stringify(player));
+      setTimeout(() => {
+        setFirstPlayer(player);
+        findNeighbours(player);
+      }, 1500);
+    }
   };
 
   useEffect(() => {
@@ -170,7 +148,7 @@ const Field = () => {
                         );
                       }}
                       style={
-                        neighbours.includes(cell)
+                        neighbours.includes(cell) && roll != 0
                           ? { color: colors[cell] }
                           : {
                               backgroundColor: colors[cell],
@@ -179,12 +157,15 @@ const Field = () => {
                             }
                       }
                       className={classNames(css.table__cell, {
-                        [css.table__cell__active]: cell == firstPlayer,
-                        [css.table__cell__nb]: neighbours.includes(cell),
+                        [css.table__cell__active]:
+                          cell == firstPlayer && roll != 0,
+                        [css.table__cell__nb]:
+                          roll != 0 && neighbours.includes(cell),
                         [css.table__disabled]:
                           !neighbours.includes(cell) &&
                           cell != firstPlayer &&
-                          firstPlayer != -1,
+                          firstPlayer != -1 &&
+                          roll != 0,
                       })}
                     >
                       <span>{cell}</span>
@@ -193,7 +174,7 @@ const Field = () => {
                       style={{ zIndex: 4, fontSize: 16 }}
                       id={((i + 1) * 10 + index + 1).toString()}
                       place="bottom"
-                      content={categories[(i + 1) * 10 + index + 1]}
+                      content={subjects[(i + 1) * 10 + index + 1]}
                     />
                   </div>
                 );
@@ -214,7 +195,7 @@ const Field = () => {
             chooseNextPlayer();
           }}
         >
-          Поле, вибери наступного гравця!
+          Почати наступний раунд
         </button>
       ) : (
         <div className={css.field__roll}>
@@ -226,8 +207,13 @@ const Field = () => {
         </div>
       )}
 
-{players.length <= 1? '': <div className={css.end__wrapper}><EndButton /></div>}
-      
+      {players.length <= 1 ? (
+        ""
+      ) : (
+        <div className={css.end__wrapper}>
+          <EndButton />
+        </div>
+      )}
     </div>
   );
 };

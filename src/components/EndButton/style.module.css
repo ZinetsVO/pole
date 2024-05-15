@@ -1,5 +1,32 @@
 .end__button {
+  font-size: var(--text-small);
+  padding: 10px 15px;
+}
 
-    font-size: var(--text-small);
-    padding: 10px 15px;
-  }
+.toaster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.toaster__button__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.toaster__text {
+  font-size: var(--text-paragraph);
+  font-weight: var(--weight-normal);
+  color: var(--black);
+  text-align: center;
+}
+
+.toaster__button {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 10px;
+}

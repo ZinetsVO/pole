@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import css from "./style.module.css";
 import Timer from "../Timer";
@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useProduct } from "../Context";
 import classNames from "classnames";
 import BattlePhoto from "../BattlePhoto";
+import { photoNum } from "@/photoNum";
 
 const Battle = (id) => {
   const {
@@ -24,14 +25,14 @@ const Battle = (id) => {
   const [isRunningSecond, setIsRunningSecond] = useState(false);
   const [timeFirst, setTimeFirst] = useState(defTime);
   const [timeSecond, setTimeSecond] = useState(defTime);
-
   const [showPopup, setShowPopup] = useState(false);
-
   const [counter, setCounter] = useState(1);
+
+  const [photos, setPhotos] = useState([]);
 
   const handleIsRunning = () => {
     setCounter((prevCounter) => {
-      if (prevCounter == 30) {
+      if (prevCounter == photoNum[id.id]-1) {
         return 1;
       } else {
         return prevCounter + 1;
@@ -71,6 +72,56 @@ const Battle = (id) => {
     }
   }, [timeFirst, timeSecond]);
 
+  useEffect(() => {
+    for (let i = 1; i <= photoNum[id.id]; i++) {
+      let photo = undefined;
+
+      try {
+        photo = require(`@/static/data/${id.id}/${i}.jpg`);
+      } catch (error) {
+        photo = undefined;
+      }
+
+      if (!photo) {
+        try {
+          photo = require(`@/static/data/${id.id}/${i}.JPG`);
+        } catch (error) {
+          photo = undefined;
+        }
+      }
+
+      if (!photo) {
+        try {
+          photo = require(`@/static/data/${id.id}/${i}.jpeg`);
+        } catch (error) {
+          photo = undefined;
+        }
+      }
+
+      if (!photo) {
+        try {
+          photo = require(`@/static/data/${id.id}/${i}.png`);
+        } catch (error) {
+          photo = undefined;
+        }
+      }
+
+      if (!photo) {
+        try {
+          photo = require(`@/static/data/${id.id}/${i}.PNG`);
+        } catch (error) {
+          photo = undefined;
+        }
+      }
+
+      setPhotos((prevPhotos) => {
+        const updatedPhotos = prevPhotos;
+        updatedPhotos.push(photo);
+        return updatedPhotos;
+      });
+    }
+  }, [id.id, photos]);
+
   const submitWinner = () => {
     const winner = timeFirst <= 0 ? secondPlayer : firstPlayer;
     const loser = timeFirst <= 0 ? firstPlayer : secondPlayer;
@@ -96,24 +147,26 @@ const Battle = (id) => {
       return updatedPlayers;
     });
 
-    setFirstPlayer(-1);
+    setFirstPlayer(winner);
     setSecondPlayer(-1);
 
-    localStorage.setItem("firstPlayer", -1);
+    localStorage.setItem("firstPlayer", winner);
     localStorage.setItem("secondPlayer", -1);
   };
 
   return (
     <div className={classNames("container", css.component__wrapper)}>
       {!isRunningFirst && !isRunningSecond ? (
-        <div
-          onClick={() => setIsRunningFirst(true)}
-          className={css.start__wrapper}
-        >
-          <button className="blue__button">Почати раунд</button>
+        <div className={css.start__wrapper}>
+          <button
+            onClick={() => setIsRunningFirst(true)}
+            className="blue__button"
+          >
+            Почати 
+          </button>
         </div>
       ) : (
-        <BattlePhoto id={id} counter={counter} />
+        <BattlePhoto id={id} photo={photos[counter]} />
       )}
       <div className={css.timers__wrapper}>
         <div className={css.battle__timer}>
